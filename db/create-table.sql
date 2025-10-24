@@ -178,3 +178,63 @@ INSERT INTO acronymes (acronym, signification) VALUES
 INSERT INTO glossaire (terme, definition) VALUES
 ('Souveraineté alimentaire', 'Capacité d''un pays à produire suffisamment de nourriture pour répondre aux besoins de sa population, en réduisant sa dépendance vis-à-vis des importations.'),
 ('Transition énergétique', 'Processus de passage des énergies polluantes (charbon, pétrole) vers des énergies renouvelables (solaire, éolien), afin de réduire l''impact sur l''environnement et de garantir une production énergétique durable.');
+
+
+INSERT INTO croissance_sectorielle (annee, secteur, sous_secteur, taux_croissance) VALUES
+-- SECTEUR PRIMAIRE
+(2024, 'SECTEUR PRIMAIRE', NULL, 5.3), [cite: 259]
+(2025, 'SECTEUR PRIMAIRE', NULL, 7.8), [cite: 259]
+(2024, 'SECTEUR PRIMAIRE', 'Agriculture', 6.0), [cite: 259]
+(2025, 'SECTEUR PRIMAIRE', 'Agriculture', 9.5), [cite: 259]
+(2024, 'SECTEUR PRIMAIRE', 'Élevage et pêche', 3.9), [cite: 259]
+(2025, 'SECTEUR PRIMAIRE', 'Élevage et pêche', 4.0), [cite: 259]
+(2024, 'SECTEUR PRIMAIRE', 'Sylviculture', 1.0), [cite: 259]
+(2025, 'SECTEUR PRIMAIRE', 'Sylviculture', 1.1), [cite: 259]
+
+-- SECTEUR SECONDAIRE
+(2024, 'SECTEUR SECONDAIRE', NULL, -3.3), [cite: 259]
+(2025, 'SECTEUR SECONDAIRE', NULL, 3.4), [cite: 259]
+(2024, 'SECTEUR SECONDAIRE', 'Industrie extractive', -20.8), [cite: 259]
+(2025, 'SECTEUR SECONDAIRE', 'Industrie extractive', 4.0), [cite: 259]
+(2024, 'SECTEUR SECONDAIRE', 'Alimentaire, boisson, tabac', 0.9), [cite: 259]
+(2025, 'SECTEUR SECONDAIRE', 'Alimentaire, boisson, tabac', 2.4), [cite: 259]
+(2024, 'SECTEUR SECONDAIRE', 'Textile', 31.6), [cite: 259]
+(2025, 'SECTEUR SECONDAIRE', 'Textile', 4.0), [cite: 259]
+(2024, 'SECTEUR SECONDAIRE', 'Bois, papiers, imprimerie', 0.4), [cite: 259]
+(2025, 'SECTEUR SECONDAIRE', 'Bois, papiers, imprimerie', 0.7), [cite: 259]
+(2024, 'SECTEUR SECONDAIRE', 'Matériaux de construction', 7.9), [cite: 259]
+(2025, 'SECTEUR SECONDAIRE', 'Matériaux de construction', 8.0), [cite: 259]
+(2024, 'SECTEUR SECONDAIRE', 'Industrie métallique', 7.2), [cite: 259]
+(2025, 'SECTEUR SECONDAIRE', 'Industrie métallique', 7.3), [cite: 259]
+(2024, 'SECTEUR SECONDAIRE', 'Machine, matériels électriques', 3.1), [cite: 259]
+(2025, 'SECTEUR SECONDAIRE', 'Machine, matériels électriques', 3.2), [cite: 259]
+(2024, 'SECTEUR SECONDAIRE', 'Industries diverses', 0.5), [cite: 259]
+(2025, 'SECTEUR SECONDAIRE', 'Industries diverses', 0.6), [cite: 259]
+(2024, 'SECTEUR SECONDAIRE', 'Électricité, eau, gaz', 3.9), [cite: 259]
+(2025, 'SECTEUR SECONDAIRE', 'Électricité, eau, gaz', 4.0), [cite: 259]
+
+-- SECTEUR TERTIAIRE
+(2024, 'SECTEUR TERTIAIRE', NULL, 5.0), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', NULL, 5.4), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'BTP', 3.2), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'BTP', 3.6), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'Commerce, entretiens, réparations', 4.2), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'Commerce, entretiens, réparations', 4.3), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'Hôtel, restaurant', 14.7), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'Hôtel, restaurant', 14.9), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'Transport', 7.0), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'Transport', 7.2), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'Poste et télécommunication', 13.4), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'Poste et télécommunication', 13.7), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'Banque, assurance', 5.3), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'Banque, assurance', 6.1), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'Services aux entreprises', 2.3), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'Services aux entreprises', 2.4), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'Administration', 1.7), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'Administration', 1.9), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'Éducation', 1.7), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'Éducation', 1.8), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'Santé', 1.8), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'Santé', 1.9), [cite: 261]
+(2024, 'SECTEUR TERTIAIRE', 'Services rendus aux ménages', 1.3), [cite: 261]
+(2025, 'SECTEUR TERTIAIRE', 'Services rendus aux ménages', 1.4); [cite: 261]

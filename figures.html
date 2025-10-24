@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Citoyen 2025 - Figures Budgétaires</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Budget Citoyen 2025 - Figures Budgétaires</h1>
+
+        <!-- Figure 3. Évolution des recettes fiscales et douanières -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>Figure 3. Évolution des recettes fiscales et douanières</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="chart3" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Figure 5. Évolution des investissements publics par source de financement -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>Figure 5. Évolution des investissements publics par source de financement</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="chart5" width="400" height="200"></canvas>
+            </div>
+        </div>
+
+        <!-- Figure 6. Prévision du déficit budgétaire -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>Figure 6. Prévision du déficit budgétaire</h3>
+            </div>
+            <div class="card-body">
+                <canvas id="chart6" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Figure 3: Évolution des recettes fiscales et douanières
+            $.get('/recettes-fiscales-douanieres', function(data) {
+                const ctx3 = document.getElementById('chart3').getContext('2d');
+                const chartData = data.data;
+                const labels = chartData.map(item => item.annee);
+                const fiscales = chartData.map(item => parseFloat(item.fiscales));
+                const douanieres = chartData.map(item => parseFloat(item.douanieres));
+
+                new Chart(ctx3, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Recettes Fiscales',
+                            data: fiscales,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            fill: false
+                        }, {
+                            label: 'Recettes Douanières',
+                            data: douanieres,
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.toLocaleString('fr-FR') + ' Mds Ariary';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
+            // Figure 5: Évolution des investissements publics par source de financement
+            $.get('/investissements-publics', function(data) {
+                const ctx5 = document.getElementById('chart5').getContext('2d');
+                const chartData = data.data;
+                const years = [...new Set(chartData.map(item => item.annee))].sort();
+                const interne = years.map(year => {
+                    const item = chartData.find(d => d.annee == year && d.source === 'interne');
+                    return item ? parseFloat(item.total) : 0;
+                });
+                const externe = years.map(year => {
+                    const item = chartData.find(d => d.annee == year && d.source === 'externe');
+                    return item ? parseFloat(item.total) : 0;
+                });
+
+                new Chart(ctx5, {
+                    type: 'bar',
+                    data: {
+                        labels: years,
+                        datasets: [{
+                            label: 'Financement Interne',
+                            data: interne,
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }, {
+                            label: 'Financement Externe',
+                            data: externe,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.toLocaleString('fr-FR') + ' Mds Ariary';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
+            // Figure 6: Prévision du déficit budgétaire
+            $.get('/deficit-prevision', function(data) {
+                const ctx6 = document.getElementById('chart6').getContext('2d');
+                const chartData = data.data;
+                const labels = chartData.map(item => item.annee);
+                const deficits = chartData.map(item => parseFloat(item.deficit));
+
+                new Chart(ctx6, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Déficit Budgétaire',
+                            data: deficits,
+                            borderColor: 'rgba(255, 206, 86, 1)',
+                            backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.toLocaleString('fr-FR') + ' Mds Ariary';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
