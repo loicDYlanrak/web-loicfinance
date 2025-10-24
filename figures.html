@@ -57,7 +57,7 @@
                 const douanieres = chartData.map(item => parseFloat(item.douanieres));
 
                 new Chart(ctx3, {
-                    type: 'line',
+                    type: 'bar',
                     data: {
                         labels: labels,
                         datasets: [{
@@ -146,7 +146,7 @@
                 const deficits = chartData.map(item => parseFloat(item.deficit));
 
                 new Chart(ctx6, {
-                    type: 'line',
+                    type: 'bar',
                     data: {
                         labels: labels,
                         datasets: [{
