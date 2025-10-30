@@ -81,3 +81,33 @@ Check your Browserslist config to be sure that your targets are set up correctly
  * Released under the MIT License.
  */
 /*! https://mths.be/cssesc v3.0.0 by @mathias */
+
+/* Styles personnalisés avec les couleurs du budget */
+.bg-primary { background-color: #44f28f !important; }
+.bg-secondary { background-color: #5ce5f4 !important; }
+.bg-accent { background-color: #44f2ca !important; }
+
+.text-primary { color: #44f28f !important; }
+.text-secondary { color: #5ce5f4 !important; }
+.text-accent { color: #44f2ca !important; }
+
+.btn-primary {
+    background-color: #44f28f;
+    border-color: #44f28f;
+}
+
+.btn-secondary {
+    background-color: #5ce5f4;
+    border-color: #5ce5f4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stat-card {
+        margin-bottom: 15px;
+    }
+    
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+}
