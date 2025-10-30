@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Citoyen 2025 - Tableaux Budgétaires</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/tables/datatables.css">
+    <style>
+        .card-header {
+            color: white;
+        }
+        #donsTableCard .card-header { background-color: #4F28F; }
+        #depensesNatureTableCard .card-header { background-color: #5CE5A; }
+        #deficitTableCard .card-header { background-color: #4F2CA; }
+        #institutionTableCard .card-header { background-color: #4F28F; }
+        #postesTableCard .card-header { background-color: #5CE5A; }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Budget Citoyen 2025 - Tableaux Budgétaires</h1>
+
+        <!-- Tableau 5. Composition des Dons -->
+        <div class="card mt-4" id="donsTableCard">
+            <div class="card-header">
+                <h3>Tableau 5. Composition des Dons</h3>
+            </div>
+            <div class="card-body">
+                <table id="donsTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Année</th>
+                            <th>Type de Don</th>
+                            <th>Montant (Milliards Ariary)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tableau 1. Ventilation des dépenses par rubrique -->
+        <div class="card mt-4" id="depensesNatureTableCard">
+            <div class="card-header">
+                <h3>Tableau 1. Ventilation des dépenses par rubrique</h3>
+                <small class="text-muted">Lié aux <a href="#deficitTableCard">dépenses de soldes</a> et <a href="#institutionTableCard">dépenses par institution</a></small>
+            </div>
+            <div class="card-body">
+                <table id="depensesNatureTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Année</th>
+                            <th>Rubrique</th>
+                            <th>Montant (Milliards Ariary)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tableau 2. Évolution des dépenses de soldes -->
+        <div class="card mt-4" id="deficitTableCard">
+            <div class="card-header">
+                <h3>Tableau 2. Évolution des dépenses de soldes</h3>
+            </div>
+            <div class="card-body">
+                <table id="deficitTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Année</th>
+                            <th>Recettes Total (Milliards Ariary)</th>
+                            <th>Dépenses Total (Milliards Ariary)</th>
+                            <th>Déficit (Milliards Ariary)</th>
+                            <th>Déficit/PIB (%)</th>
+                            <th>Financement Interne (Milliards Ariary)</th>
+                            <th>Financement Externe (Milliards Ariary)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tableau 3. Récapitulatif des dépenses de fonctionnement -->
+        <div class="card mt-4" id="institutionTableCard">
+            <div class="card-header">
+                <h3>Tableau 3. Récapitulatif des dépenses de fonctionnement</h3>
+                <small class="text-muted">Lié aux <a href="#depensesNatureTableCard">dépenses par rubrique</a></small>
+            </div>
+            <div class="card-body">
+                <table id="institutionTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Année</th>
+                            <th>Institution</th>
+                            <th>Montant (Milliards Ariary)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tableau 4. Répartition du budget par rattachement administratif -->
+        <div class="card mt-4" id="postesTableCard">
+            <div class="card-header">
+                <h3>Tableau 4. Répartition du budget par rattachement administratif</h3>
+                <small class="text-muted">Lié aux <a href="#institutionTableCard">dépenses par institution</a></small>
+            </div>
+            <div class="card-body">
+                <table id="postesTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Année</th>
+                            <th>Ministère</th>
+                            <th>Nombre de Postes</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/tables/datatables.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Tableau 5. Composition des Dons
+            $('#donsTable').DataTable({
+                ajax: {
+                    url: '/dons',
+                    type: 'GET'
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'annee' },
+                    { data: 'type_don' },
+                    { data: 'montant', render: function(data) { return parseFloat(data).toLocaleString('fr-FR'); } }
+                ]
+            });
+
+            // Tableau 1. Ventilation des dépenses par rubrique
+            $('#depensesNatureTable').DataTable({
+                ajax: {
+                    url: '/depenses-nature',
+                    type: 'GET'
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'annee' },
+                    { data: 'rubrique' },
+                    { data: 'montant', render: function(data) { return parseFloat(data).toLocaleString('fr-FR'); } }
+                ]
+            });
+
+            // Tableau 2. Évolution des dépenses de soldes
+            $('#deficitTable').DataTable({
+                ajax: {
+                    url: '/deficit-budgetaire',
+                    type: 'GET'
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'annee' },
+                    { data: 'recettes_total', render: function(data) { return parseFloat(data).toLocaleString('fr-FR'); } },
+                    { data: 'depenses_total', render: function(data) { return parseFloat(data).toLocaleString('fr-FR'); } },
+                    { data: 'deficit', render: function(data) { return parseFloat(data).toLocaleString('fr-FR'); } },
+                    { data: 'deficit_pib', render: function(data) { return data + '%'; } },
+                    { data: 'financement_interne', render: function(data) { return parseFloat(data).toLocaleString('fr-FR'); } },
+                    { data: 'financement_externe', render: function(data) { return parseFloat(data).toLocaleString('fr-FR'); } }
+                ]
+            });
+
+            // Tableau 3. Récapitulatif des dépenses de fonctionnement
+            $('#institutionTable').DataTable({
+                ajax: {
+                    url: '/depenses-institution',
+                    type: 'GET'
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'annee' },
+                    { data: 'institution' },
+                    { data: 'montant', render: function(data) { return parseFloat(data).toLocaleString('fr-FR'); } }
+                ]
+            });
+
+            // Tableau 4. Répartition du budget par rattachement administratif
+            $('#postesTable').DataTable({
+                ajax: {
+                    url: '/postes-budgetaires',
+                    type: 'GET'
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'annee' },
+                    { data: 'ministere' },
+                    { data: 'nombre_postes', render: function(data) { return parseInt(data).toLocaleString('fr-FR'); } }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

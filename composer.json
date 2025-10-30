@@ -29,7 +29,10 @@
     "autoload": {
         "files": [
             "flight/autoload.php"
-        ]
+        ],
+        "psr-4": {
+            "App\\": "app/"
+        }
     },
     "autoload-dev": {
         "classmap": [
